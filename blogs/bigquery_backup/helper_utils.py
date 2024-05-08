@@ -57,7 +57,7 @@ def write_json_string(json_string, output_gcsfile):
     :output_gcsfile:  URL starting with gs://
     """
     schema = json.loads(json_string)
-    logging.info(schema)
+    #logging.info(schema)
     fd, fname = tempfile.mkstemp()
     with open(fname, 'w') as ofp:
         json.dump(schema, ofp, sort_keys=False, indent=2)

@@ -58,7 +58,7 @@ def restore_table(fromdir, todataset):
     ]
 
     # get table definition
-    tbldef = read_json_string(os.path.join(fromdir, 'tbldef.json'))
+    tbldef = read_json_string("/".join([fromdir, 'tbldef.json']))
 
     if tbldef['type'] == 'VIEW':
         restore_view(tbldef, fromdir, todataset)
@@ -102,7 +102,7 @@ def restore_table(fromdir, todataset):
     table_name = tbldef['tableReference']['tableId']
     load_command += [
         '{}.{}'.format(todataset, table_name),
-        os.path.join(fromdir, 'data_*.avro')
+        "/".join([fromdir, 'data_*.avro'])
     ]
 
     exec_shell_command(load_command)

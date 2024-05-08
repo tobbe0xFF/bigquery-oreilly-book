@@ -53,13 +53,13 @@ def backup_table(dataset, tablename, todir, schemaonly):
             return  # no need to extract data
 
         # read the data
-        output_data_name = os.path.join(todir, dataset, tablename, 'data_*.avro')
+        output_gcs_path = "/".join([todir, dataset, tablename, 'data_*.avro'])
         _ = exec_shell_command([
             'bq', 'extract',
             '--destination_format=AVRO',
             '--use_avro_logical_types', # for DATE, TIME, NUMERIC
             full_table_name,
-            output_data_name
+            output_gcs_path
         ])
 
 

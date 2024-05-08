@@ -36,14 +36,16 @@ def backup_table(dataset, tablename, todir, schemaonly):
     # write schema to GCS
     schema = exec_shell_command(['bq', 'show', '--schema', full_table_name])
     write_json_string(schema,
-                      os.path.join(todir, dataset, tablename, 'schema.json')
+                      os.path.join(todir, dataset, tablename),
+                      'schema.json'
                       )
 
     if not schemaonly:
         # back up the table definition
         tbldef = exec_shell_command(['bq', '--format=json', 'show', full_table_name])
         write_json_string(tbldef,
-                          os.path.join(todir, dataset, tablename, 'tbldef.json')
+                          os.path.join(todir, dataset, tablename),
+                          'tbldef.json'
                           )
 
         tbldef = json.loads(tbldef)  # array of dicts
@@ -56,7 +58,7 @@ def backup_table(dataset, tablename, todir, schemaonly):
             'bq', 'extract',
             '--destination_format=AVRO',
             '--use_avro_logical_types', # for DATE, TIME, NUMERIC
-            '{}.{}'.format(dataset, tablename),
+            full_table_name,
             output_data_name
         ])
 

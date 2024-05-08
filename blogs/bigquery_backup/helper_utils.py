@@ -50,23 +50,23 @@ def exec_shell_pipeline(pipeline):
     return curr.communicate()[0]
 
 
-def write_json_string(json_string, output_gcsfile):
+def write_json_string(json_string, output_gcsdir, filename):
     """
     Write a json string to a file in Google Cloud Storage in pretty format
     :json_string: string to write out
-    :output_gcsfile:  URL starting with gs://
+    :output_gcsdir:  URL starting with gs://
+    :filename: the filename (needs to be same as the original table name)
     """
     schema = json.loads(json_string)
-    #logging.info(schema)
-    fd, fname = tempfile.mkstemp()
-    with open(fname, 'w') as ofp:
+    # logging.info(schema)
+    filepath = os.path.join(tempfile.mkdtemp(), filename)
+    with open(filepath, 'w') as ofp:
         json.dump(schema, ofp, sort_keys=False, indent=2)
-    os.close(fd)
-    exec_shell_command(['gsutil', 'cp', fname, output_gcsfile])
+    exec_shell_command(['gsutil', 'cp', filepath, output_gcsdir])
 
 def read_json_string(gcsfile):
     """
-    Read a json string to a file from Google Cloud Storage
+    Read a json string to a file from Google Cloud Storage  
     :gcsfile:  URL starting with gs://
     """
     json_string = exec_shell_command(['gsutil', 'cat', gcsfile])

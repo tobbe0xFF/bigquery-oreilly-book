@@ -47,7 +47,7 @@ def restore_table(fromdir, todataset):
     """
     Restore schema & data from GCS to BigQuery table
     :param todir: GCS input directory gs://..../dataset/tablename/
-    :param todataset: BigQuery dataset name
+    :param todataset: BigQuery dataset path
     """
 
     # start to create load command
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Restore a BigQuery dataset from Google Cloud Storage'
     )
-    parser.add_argument('--output', required=True, help='destination dataset')
+    parser.add_argument('--output', required=True, help='destination dataset path')
     parser.add_argument('--input', required=True, help='GCS URL gs://..../dataset/tablename/ ')
     parser.add_argument('--quiet', action='store_true', help='Turn off verbose logging')
 

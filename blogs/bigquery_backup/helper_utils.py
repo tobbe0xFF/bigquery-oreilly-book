@@ -28,7 +28,7 @@ def exec_shell_command(command):
     :return: output of command
     """
     logging.info(command)
-    process = subprocess.run(command, stdout=subprocess.PIPE, universal_newlines=True)
+    process = subprocess.run(command, stdout=subprocess.PIPE, universal_newlines=True, shell=True)
     return process.stdout
 
 

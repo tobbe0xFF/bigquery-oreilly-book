@@ -1,4 +1,13 @@
-# bigquery-oreilly-book
+# Tobbe0xFF fork of bigquery-oreilly-book
+
+This fork focuses on fixing a couple of bugs/limitations in the bigquery scripts of the blog directory. Namely:
+* Prevents file does not exist errors
+* Removed verbose schema declaration in logs
+* Creates output files with expected table name correctly in GCP
+* Prevents invalid paths when running on Windows machine
+* Handles dataset paths including GCP project name correctly
+
+# Original information about this repository
 
 Source code accompanying:
 

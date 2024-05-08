@@ -5,25 +5,23 @@ https://medium.com/google-cloud/how-to-backup-a-bigquery-table-or-dataset-to-goo
 
 ### Example usage
 
-1. Backup a table to GCS
+1. Backup a table/view to GCS
 ```
-./bq_backup.py --input dataset.tablename --output gs://BUCKET/backup
+python.exe bigquery_backup.py --input project_name:dataset_name.table_name --output gs://BUCKET_NAME/.../
 ```
-This saves a schema.json, a tabledef.json, and extracted data in AVRO format to GCS.
+Subfolders with the dataset and table names resepctively are automatically created under the specified GCS path. Inside a schema.json, a tabledef.json, and extracted data in AVRO format is saved. In case of views only the schema and table definitions are created but no data is stored.
 
 
-2. You can also backup all the tables in a data set:
+2. You can also backup all the tables/views in a data set:
 ```
-./bq_backup.py --input dataset --output gs://BUCKET/backup
+python.exe bigquery_backup.py --input project_name:dataset_name --output gs://BUCKET_NAME/.../
 ```
+Works as in example 1 but iterates over all tables and views in the dataset.
 
-3. Restore tables one-by-one by specifying a destination data set
+3. Restore tables/views one-by-one by specifying a destination data set
 ```
-./bq_restore.py --input gs://BUCKET/backup/fromdataset/fromtable --output destdataset
+python.exe bigquery_restore.py --input gs://BUCKET_NAME/.../dataset_name/table_name --output project_name:dataset_name
 ```
-
-For views, the backup stores the view definition and the restore creates a view.
-The data behind the view is not backed up.
 
 
 ### Dependencies

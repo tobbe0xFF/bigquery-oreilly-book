@@ -19,7 +19,7 @@ import argparse
 import json
 import os
 
-from helper_utils import exec_shell_command, exec_shell_pipeline, write_json_string
+from helper_utils import exec_shell_command, write_json_string
 
 def backup_table(dataset_path, table_name, todir, schemaonly):
     """

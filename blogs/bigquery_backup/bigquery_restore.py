@@ -21,7 +21,7 @@ import tempfile
 import json
 import os
 
-from helper_utils import exec_shell_command, exec_shell_pipeline, read_json_string
+from helper_utils import exec_shell_command, read_json_string
 
 def restore_view(tbldef, fromdir, todataset):
     """
